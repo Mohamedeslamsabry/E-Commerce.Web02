@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Persistence.Data;
+
 namespace E_Commerce.Web
 {
     public class Program
@@ -19,6 +22,12 @@ namespace E_Commerce.Web
             #endregion
 
             #region Added By Me
+
+            builder.Services.AddDbContext<StroreDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
+            });
+
 
             #endregion
 
