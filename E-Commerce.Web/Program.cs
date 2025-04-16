@@ -3,6 +3,7 @@ using Domain_Layer.Contract;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Data.DbContexts;
+using Persistence.Implment_Repo;
 using System.Threading.Tasks;
 
 namespace E_Commerce.Web
@@ -34,9 +35,13 @@ namespace E_Commerce.Web
             #endregion
 
             #region AddScoped => DataSeeding
-            builder.Services.AddScoped<IDataSeeding, DataSeeding>(); 
+            builder.Services.AddScoped<IDataSeeding, DataSeeding>();
             #endregion
 
+            #endregion
+
+            #region UnitOfWork
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
             #endregion
 
             #endregion
