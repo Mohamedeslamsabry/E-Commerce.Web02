@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Data.DbContexts;
 using Persistence.Implment_Repo;
+using Service_Implemention;
+using Service_Implemention.Profiles;
 using System.Threading.Tasks;
 
 namespace E_Commerce.Web
@@ -38,11 +40,18 @@ namespace E_Commerce.Web
             builder.Services.AddScoped<IDataSeeding, DataSeeding>();
             #endregion
 
+            #region UnitOfWork
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             #endregion
 
-            #region UnitOfWork
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+            #region autoMaper
+
+            builder.Services.AddAutoMapper(typeof(AssemblyRef).Assembly);
+
             #endregion
+
+            #endregion
+
 
             #endregion
 

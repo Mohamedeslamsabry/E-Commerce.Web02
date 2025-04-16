@@ -22,6 +22,14 @@ namespace Service_Implemention.Products
         }
         #endregion
 
+        #region GetProductByIdAsync
+        public async Task<ProductDto> GetProductByIdAsync(int id)
+        {
+            var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(id);
+            return _mapper.Map<Product, ProductDto>(Product);
+        } 
+        #endregion
+
         #region GetAllBrandsAsync
         public async Task<IEnumerable<BrandDto>> GetAllBrandsAsync()
         {
@@ -38,14 +46,6 @@ namespace Service_Implemention.Products
             var ProductsTypeDto = _mapper.Map<IEnumerable<ProductType>, IEnumerable<TypeDto>>(ProductsType);
             return ProductsTypeDto;
         }
-        #endregion
-
-        #region GetProductByIdAsync
-        public async Task<ProductDto> GetProductByIdAsync(int id)
-        {
-            var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(id);
-            return _mapper.Map<Product, ProductDto>(Product);
-        } 
         #endregion
     }
 }
