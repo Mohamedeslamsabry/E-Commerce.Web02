@@ -14,9 +14,10 @@ namespace Persistence
     public class DataSeeding(StroreDbContext _stroreDbContext) : IDataSeeding
     {
 
-        public void DataSeed()
+        public async Task DataSeedAsync()
         {
-            if (_stroreDbContext.Database.GetPendingMigrations().Any())
+            var PendingMigration = await _stroreDbContext.Database.GetPendingMigrationsAsync();
+            if (PendingMigration.Any())
             {
                 _stroreDbContext.Database.Migrate();
             }
@@ -24,35 +25,38 @@ namespace Persistence
             if (!_stroreDbContext.productBrands.Any())
             {
                 //D:\Desktop\Back end (.Net) videos\Eng  Aliaa tarek\Web Api\Project WebApi\E-Commerce.Web\Inferastructure\Persistence\Data\DataSeed\brands.json
-                var ProductPrandData = File.ReadAllText(@"..\Inferastructure\Persistence\Data\DataSeed\brands.json");
-                var ProductPrand = JsonSerializer.Deserialize<List<ProductBrand>>(ProductPrandData);
+                //var ProductPrandData = File.ReadAllTextAsync(@"..\Inferastructure\Persistence\Data\DataSeed\brands.json");
+                var ProductPrandData = File.OpenRead(@"..\Inferastructure\Persistence\Data\DataSeed\brands.json");
+
+                var ProductPrand = await JsonSerializer.DeserializeAsync<List<ProductBrand>>(ProductPrandData);
+
                 if (ProductPrand != null && ProductPrand.Any())
                 {
-                    _stroreDbContext.AddRange(ProductPrand);
+                    await _stroreDbContext.AddRangeAsync(ProductPrand);
                 }
             }
 
             if (!_stroreDbContext.productTypes.Any())
             {
-                var ProductTypeData = File.ReadAllText(@"..\Inferastructure\Persistence\Data\DataSeed\types.json");
-                var ProductType = JsonSerializer.Deserialize<List<ProductType>>(ProductTypeData);
+                var ProductTypeData = File.OpenRead(@"..\Inferastructure\Persistence\Data\DataSeed\types.json");
+                var ProductType = await JsonSerializer.DeserializeAsync<List<ProductType>>(ProductTypeData);
                 if (ProductType != null && ProductType.Any())
                 {
-                    _stroreDbContext.AddRange(ProductType);
+                    await _stroreDbContext.AddRangeAsync(ProductType);
                 }
             }
 
             if (!_stroreDbContext.products.Any())
             {
-                var ProductData = File.ReadAllText(@"..\Inferastructure\Persistence\Data\DataSeed\Products.json");
-                var Product = JsonSerializer.Deserialize<List<Product>>(ProductData);
+                var ProductData = File.OpenRead(@"..\Inferastructure\Persistence\Data\DataSeed\Products.json");
+                var Product = await JsonSerializer.DeserializeAsync<List<Product>>(ProductData);
                 if (Product != null && Product.Any())
                 {
-                    _stroreDbContext.AddRange(Product);
+                    await _stroreDbContext.AddRangeAsync(Product);
                 }
             }
 
-            _stroreDbContext.SaveChanges();
+            await _stroreDbContext.SaveChangesAsync();
         }
     }
 }
