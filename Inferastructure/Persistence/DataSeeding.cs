@@ -1,7 +1,7 @@
 ﻿using Domain_Layer.Contract;
 using Domain_Layer.Models;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Data;
+using Persistence.Data.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace Persistence
                 //D:\Desktop\Back end (.Net) videos\Eng  Aliaa tarek\Web Api\Project WebApi\E-Commerce.Web\Inferastructure\Persistence\Data\DataSeed\brands.json
                 var ProductPrandData = File.ReadAllText(@"..\Inferastructure\Persistence\Data\DataSeed\brands.json");
                 var ProductPrand = JsonSerializer.Deserialize<List<ProductBrand>>(ProductPrandData);
-                if(ProductPrand != null && ProductPrand.Any())
+                if (ProductPrand != null && ProductPrand.Any())
                 {
                     _stroreDbContext.AddRange(ProductPrand);
                 }

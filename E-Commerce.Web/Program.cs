@@ -2,7 +2,7 @@
 using Domain_Layer.Contract;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Persistence.Data;
+using Persistence.Data.DbContexts;
 
 namespace E_Commerce.Web
 {
@@ -25,12 +25,16 @@ namespace E_Commerce.Web
 
             #region Added By Me
 
+            #region AddDbContext
             builder.Services.AddDbContext<StroreDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
-            });
+                  {
+                      options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
+                  });
+            #endregion
 
-            builder.Services.AddScoped<IDataSeeding, DataSeeding>();
+            #region AddScoped => DataSeeding
+            builder.Services.AddScoped<IDataSeeding, DataSeeding>(); 
+            #endregion
 
             #endregion
 
@@ -38,11 +42,11 @@ namespace E_Commerce.Web
 
             var app = builder.Build();
 
+            #region DataSeeding
             using var Scope = app.Services.CreateScope();
             var ObjOfDataSeeding = Scope.ServiceProvider.GetRequiredService<IDataSeeding>();
-            ObjOfDataSeeding.DataSeed();
-
-
+            ObjOfDataSeeding.DataSeed(); 
+            #endregion
 
             #region  Configure the HTTP request pipeline.
 
