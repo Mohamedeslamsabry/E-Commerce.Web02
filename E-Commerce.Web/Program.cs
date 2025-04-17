@@ -2,13 +2,19 @@
 using Domain_Layer.Contract;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Persistence.Data;
+using Persistence.Data.DbContexts;
+using Persistence.Implment_Repo;
+using Service_Abstrction.Product;
+using Service_Implemention;
+using Service_Implemention.Products;
+using Service_Implemention.Profiles;
+using System.Threading.Tasks;
 
 namespace E_Commerce.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -25,12 +31,30 @@ namespace E_Commerce.Web
 
             #region Added By Me
 
+            #region AddDbContext
             builder.Services.AddDbContext<StroreDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
-            });
+                  {
+                      options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
+                  });
+            #endregion
 
+            #region AddScoped => DataSeeding
             builder.Services.AddScoped<IDataSeeding, DataSeeding>();
+            #endregion
+
+            #region UnitOfWork
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            #endregion
+
+            #region autoMaper
+
+            builder.Services.AddAutoMapper(typeof(AssemblyRef).Assembly);
+
+            #endregion
+
+            #region ServiceManger
+            builder.Services.AddScoped<IServiceManger, ServiceManger>();
+            #endregion
 
             #endregion
 
@@ -38,11 +62,11 @@ namespace E_Commerce.Web
 
             var app = builder.Build();
 
+            #region DataSeeding
             using var Scope = app.Services.CreateScope();
             var ObjOfDataSeeding = Scope.ServiceProvider.GetRequiredService<IDataSeeding>();
-            ObjOfDataSeeding.DataSeed();
-
-
+            await ObjOfDataSeeding.DataSeedAsync(); 
+            #endregion
 
             #region  Configure the HTTP request pipeline.
 
@@ -54,6 +78,7 @@ namespace E_Commerce.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

@@ -7,15 +7,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistence.Data
+namespace Persistence.Data.DbContexts
 {
-    public class StroreDbContext : DbContext//DbContextOptions<StroreDbContext> options
+    public class StroreDbContext(DbContextOptions<StroreDbContext> options) : DbContext(options)//DbContextOptions<StroreDbContext> options
     {
-
-        public StroreDbContext(DbContextOptions<StroreDbContext> options):base(options) 
-        {
-            
-        }
 
         #region Dbset
         public DbSet<Product> products { get; set; }
@@ -27,7 +22,7 @@ namespace Persistence.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyRefrence).Assembly);
-        } 
+        }
         #endregion
     }
 }

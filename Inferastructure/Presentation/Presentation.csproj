@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\Core\Service_Abstrction\Service_Abstrction.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App"/>
+	</ItemGroup>
+
 </Project>
