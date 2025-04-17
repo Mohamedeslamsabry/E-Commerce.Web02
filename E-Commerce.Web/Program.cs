@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Data.DbContexts;
 using Persistence.Implment_Repo;
+using Service_Abstrction.Product;
 using Service_Implemention;
+using Service_Implemention.Products;
 using Service_Implemention.Profiles;
 using System.Threading.Tasks;
 
@@ -50,8 +52,11 @@ namespace E_Commerce.Web
 
             #endregion
 
+            #region ServiceManger
+            builder.Services.AddScoped<IServiceManger, ServiceManger>();
             #endregion
 
+            #endregion
 
             #endregion
 
