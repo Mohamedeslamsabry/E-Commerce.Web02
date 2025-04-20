@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,15 +10,30 @@ namespace Domain_Layer.Contract
 {
     public interface IGenricRepository<TEntity, Tkey> where TEntity : BaseEntity<Tkey>
     {
-        //GetAll
+        #region GetAll        
         Task<IEnumerable<TEntity>> GetAllAsync();
-        //GetById
+        #endregion
+        
+        #region GetById
         Task<TEntity?> GetByIdAsync(Tkey id);
-        //Update
+        #endregion
+
+        #region Update
         void Update(TEntity entity);
-        //Remove
+        #endregion
+
+        #region Remove
         void Remove(TEntity entity);
-        //Add
+        #endregion
+
+        #region Add
         Task AddAsync(TEntity entity);
+        #endregion
+
+        #region specification
+        Task<IEnumerable<TEntity>> GetAllAsync(ISpecification<TEntity, Tkey> specification);
+
+        Task<TEntity?> GetByIdAsync(ISpecification<TEntity, Tkey> specification); 
+        #endregion
     }
 }
