@@ -1,4 +1,5 @@
 ﻿using Domain_Layer.Models;
+using Shared;
 using Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,15 @@ namespace Service_Implemention.Specifications
     {
         //Get All Products Including Their Brand And Type 
         //_dbcontext.set<TEntity>().where(P=>P.BrandId == BrandId && P.TypeId == TypeId)
-        public ProductWithPrandAndTypeSpecification(int? BrandId, int? TypeId , ProductSortingSpecifications productSorting) :
-            base(P => (!BrandId.HasValue || P.BrandId == BrandId) &&
-                 (!TypeId.HasValue || P.TypeId == TypeId))
+        public ProductWithPrandAndTypeSpecification(ProductQueryParamter productQuery) :
+            base(P => (!productQuery.BrandId.HasValue || P.BrandId == productQuery.BrandId) &&
+                 (!productQuery.TypeId.HasValue || P.TypeId == productQuery.TypeId))
 
         {
             AddInclude(P => P.ProductBrand);
             AddInclude(P => P.ProductType);
 
-            switch (productSorting)
+            switch (productQuery.productSorting)
             {
                 case ProductSortingSpecifications.NameAsc:
                     SetOrdery(P => P.Name);

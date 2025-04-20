@@ -3,6 +3,7 @@ using Domain_Layer.Contract;
 using Domain_Layer.Models;
 using Service_Abstrction.Product;
 using Service_Implemention.Specifications;
+using Shared;
 using Shared.DTO.Product;
 using Shared.Enums;
 using System;
@@ -16,9 +17,9 @@ namespace Service_Implemention.Products
     public class ProductService(IUnitOfWork _unitOfWork , IMapper _mapper) : IProductService
     {
         #region GetAllProductsAsync
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId, int? TypeId , ProductSortingSpecifications productSorting)
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery)
         {
-            var Specification = new ProductWithPrandAndTypeSpecification( BrandId,  TypeId , productSorting);
+            var Specification = new ProductWithPrandAndTypeSpecification(productQuery);
             var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync(Specification);
             var ProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
             return ProductsDto;
