@@ -11,12 +11,16 @@ namespace Service_Implemention.Specifications
     class ProductWithPrandAndTypeSpecification : BaseSpecification<Product, int>
     {
         //Get All Products Including Their Brand And Type 
-        public ProductWithPrandAndTypeSpecification() : base(null!)
+        //_dbcontext.set<TEntity>().where(P=>P.BrandId == BrandId && P.TypeId == TypeId)
+        public ProductWithPrandAndTypeSpecification(int? BrandId, int? TypeId) :
+            base(P => (!BrandId.HasValue || P.BrandId == BrandId) &&
+                 (!TypeId.HasValue || P.TypeId == TypeId))
+
         {
             AddInclude(P => P.ProductBrand);
             AddInclude(P => P.ProductType);
         }
-        public ProductWithPrandAndTypeSpecification(int id) : base(P=>P.Id == id)
+        public ProductWithPrandAndTypeSpecification(int id) : base(P => P.Id == id)
         {
             AddInclude(P => P.ProductBrand);
             AddInclude(P => P.ProductType);

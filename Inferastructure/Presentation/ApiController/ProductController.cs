@@ -16,9 +16,9 @@ namespace Presentation.ApiController
         #region Get All Product
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProduct()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProduct(int ? BrandId , int ? TypeId)
         {
-            var Products = await _serviceManger.productService.GetAllProductsAsync();
+            var Products = await _serviceManger.productService.GetAllProductsAsync( BrandId ,TypeId);
             return Ok(Products);
         }
         #endregion
