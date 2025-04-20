@@ -29,6 +29,7 @@ namespace Service_Implemention.Specifications
         public Expression<Func<TEntity, object>> OrderBy { get; private set; }
 
         public Expression<Func<TEntity, object>> OrderByDesc { get; private set; }
+
         #endregion
 
         #region Order By (Set)
@@ -48,7 +49,23 @@ namespace Service_Implemention.Specifications
         protected void AddInclude(Expression<Func<TEntity, object>> incudeExpression)
         {
             IncudeExpression.Add(incudeExpression);
-        } 
+        }
+        #endregion
+
+        #region Pagention
+        public int Skip { get; private set; }
+        public int Take { get; private set; }
+        public bool IsPaginate { get; set; }
+
+        //                         100        10             3      
+        protected void ApplyPagention(int PageSize, int PageIndex)
+        {
+            IsPaginate = true;
+            Take = PageSize;
+            Skip = (PageIndex - 1) * PageSize;
+        }
+
+
         #endregion
     }
 }

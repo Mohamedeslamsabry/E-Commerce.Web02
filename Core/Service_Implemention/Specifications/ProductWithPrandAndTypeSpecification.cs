@@ -42,6 +42,7 @@ namespace Service_Implemention.Specifications
                     break;
             }
 
+            ApplyPagention(productQuery.pageSize, productQuery.PageIndex);
         }
         public ProductWithPrandAndTypeSpecification(int id) : base(P => P.Id == id)
         {
