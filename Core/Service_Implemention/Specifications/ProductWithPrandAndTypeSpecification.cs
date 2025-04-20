@@ -16,7 +16,9 @@ namespace Service_Implemention.Specifications
         //_dbcontext.set<TEntity>().where(P=>P.BrandId == BrandId && P.TypeId == TypeId)
         public ProductWithPrandAndTypeSpecification(ProductQueryParamter productQuery) :
             base(P => (!productQuery.BrandId.HasValue || P.BrandId == productQuery.BrandId) &&
-                 (!productQuery.TypeId.HasValue || P.TypeId == productQuery.TypeId))
+                 (!productQuery.TypeId.HasValue || P.TypeId == productQuery.TypeId)
+            && (string.IsNullOrEmpty(productQuery.SearchValue) || P.Name.ToLower().Contains(productQuery.SearchValue.ToLower()))
+            )
 
         {
             AddInclude(P => P.ProductBrand);
