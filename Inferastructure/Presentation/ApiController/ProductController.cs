@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service_Abstrction.Product;
 using Shared.DTO.Product;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace Presentation.ApiController
         #region Get All Product
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProduct(int ? BrandId , int ? TypeId)
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProduct(int ? BrandId , int ? TypeId , ProductSortingSpecifications productSorting)
         {
-            var Products = await _serviceManger.productService.GetAllProductsAsync( BrandId ,TypeId);
+            var Products = await _serviceManger.productService.GetAllProductsAsync( BrandId ,TypeId,productSorting);
             return Ok(Products);
         }
         #endregion

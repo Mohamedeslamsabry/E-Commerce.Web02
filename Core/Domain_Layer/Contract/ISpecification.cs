@@ -12,6 +12,12 @@ namespace Domain_Layer.Contract
     {
         Expression<Func<TEntity, bool>> Criteria { get; } // Where
         List<Expression<Func<TEntity, object>>> IncudeExpression { get; }//ListOfIncude 
-        //object => Once ProductBrand AnotherOnce => ProductType
+                                                                         //object => Once ProductBrand AnotherOnce => ProductType
+
+        #region OrderBy
+        Expression<Func<TEntity, object>> OrderBy { get; }
+        Expression<Func<TEntity, object>> OrderByDesc { get; } 
+        #endregion
+
     }
 }

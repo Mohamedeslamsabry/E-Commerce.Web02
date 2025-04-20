@@ -18,6 +18,17 @@ namespace Persistence.Specification
             {
                 Query = Query.Where(specification.Criteria);
             }
+
+            if(specification.OrderBy is not null)
+            {
+                Query = Query.OrderBy(specification.OrderBy);
+            }
+
+            if (specification.OrderByDesc is not null)
+            {
+                Query = Query.OrderByDescending(specification.OrderByDesc);
+            }
+
             if (specification.IncudeExpression is not null && specification.IncudeExpression.Count() > 0)
             {
                 //foreach (var spec in specification.IncudeExpression)                
