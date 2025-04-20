@@ -23,7 +23,7 @@ namespace Presentation.ApiController
         }
         #endregion
 
-        #region Get Product
+        #region Get Product By Id
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProductById(int id)
         {

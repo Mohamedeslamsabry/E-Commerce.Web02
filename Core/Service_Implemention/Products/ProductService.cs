@@ -2,6 +2,7 @@
 using Domain_Layer.Contract;
 using Domain_Layer.Models;
 using Service_Abstrction.Product;
+using Service_Implemention.Specifications;
 using Shared.DTO.Product;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace Service_Implemention.Products
         #region GetAllProductsAsync
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync();
+            var Specification = new ProductWithPrandAndTypeSpecification();
+            var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync(Specification);
             var ProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
             return ProductsDto;
         }
@@ -25,8 +27,9 @@ namespace Service_Implemention.Products
         #region GetProductByIdAsync
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(id);
-            return _mapper.Map<Product, ProductDto>(Product);
+            var Specification = new ProductWithPrandAndTypeSpecification(id);
+            var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(Specification);
+            return _mapper.Map<Product, ProductDto>(Product!);
         } 
         #endregion
 
