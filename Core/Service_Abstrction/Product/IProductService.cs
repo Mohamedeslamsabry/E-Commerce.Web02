@@ -12,7 +12,7 @@ namespace Service_Abstrction.Product
     public interface IProductService
     {
         //Get all Product
-        Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery);
+        Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery);
 
         //Get Product By Id 
         Task<ProductDto> GetProductByIdAsync(int id);

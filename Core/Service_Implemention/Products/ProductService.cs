@@ -17,12 +17,12 @@ namespace Service_Implemention.Products
     public class ProductService(IUnitOfWork _unitOfWork , IMapper _mapper) : IProductService
     {
         #region GetAllProductsAsync
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery)
+        public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery)
         {
             var Specification = new ProductWithPrandAndTypeSpecification(productQuery);
             var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync(Specification);
             var ProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
-            return ProductsDto;
+            return new PaginatedResult<ProductDto>(0, productQuery.pageSize, productQuery.PageIndex, ProductsDto);
         }
         #endregion
 
