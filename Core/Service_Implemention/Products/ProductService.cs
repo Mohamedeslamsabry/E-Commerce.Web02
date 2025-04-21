@@ -2,7 +2,10 @@
 using Domain_Layer.Contract;
 using Domain_Layer.Models;
 using Service_Abstrction.Product;
+using Service_Implemention.Specifications;
+using Shared;
 using Shared.DTO.Product;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +17,23 @@ namespace Service_Implemention.Products
     public class ProductService(IUnitOfWork _unitOfWork , IMapper _mapper) : IProductService
     {
         #region GetAllProductsAsync
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
+        public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery)
         {
-            var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync();
+            var Specification = new ProductWithPrandAndTypeSpecification(productQuery);
+            var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync(Specification);
             var ProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
-            return ProductsDto;
+            var spec = new ProductCountSpecification(productQuery);
+            var TotalCount = await _unitOfWork.genricRepository<Product, int>().CountAsync(spec);
+            return new PaginatedResult<ProductDto>(TotalCount, Products.Count(), productQuery.PageIndex, ProductsDto);
         }
         #endregion
 
         #region GetProductByIdAsync
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(id);
-            return _mapper.Map<Product, ProductDto>(Product);
+            var Specification = new ProductWithPrandAndTypeSpecification(id);
+            var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(Specification);
+            return _mapper.Map<Product, ProductDto>(Product!);
         } 
         #endregion
 
