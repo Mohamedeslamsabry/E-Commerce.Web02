@@ -33,7 +33,9 @@ namespace Domain_Layer.Contract
         #region specification
         Task<IEnumerable<TEntity>> GetAllAsync(ISpecification<TEntity, Tkey> specification);
 
-        Task<TEntity?> GetByIdAsync(ISpecification<TEntity, Tkey> specification); 
+        Task<TEntity?> GetByIdAsync(ISpecification<TEntity, Tkey> specification);
+
+        Task<int> CountAsync(ISpecification<TEntity, Tkey> specification);
         #endregion
     }
 }
