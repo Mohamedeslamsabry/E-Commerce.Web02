@@ -1,6 +1,8 @@
 
 using Domain_Layer.Contract;
 using E_Commerce.Web.Exceptions_MidelWare;
+using E_Commerce.Web.Factories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Data.DbContexts;
@@ -9,6 +11,7 @@ using Service_Abstrction.Product;
 using Service_Implemention;
 using Service_Implemention.Products;
 using Service_Implemention.Profiles;
+using Shared.Error_Models;
 using System.Threading.Tasks;
 
 namespace E_Commerce.Web
@@ -58,6 +61,19 @@ namespace E_Commerce.Web
             #endregion
 
             #endregion
+
+
+            #region Model State
+
+
+            builder.Services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.InvalidModelStateResponseFactory = ApiResponseFactory.ValidtionErrorResponse;
+            });
+
+
+            #endregion
+
 
             #endregion
 
