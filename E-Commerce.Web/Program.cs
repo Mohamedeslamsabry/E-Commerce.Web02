@@ -1,5 +1,6 @@
 
 using Domain_Layer.Contract;
+using E_Commerce.Web.Exceptions_MidelWare;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Persistence.Data.DbContexts;
@@ -65,10 +66,25 @@ namespace E_Commerce.Web
             #region DataSeeding
             using var Scope = app.Services.CreateScope();
             var ObjOfDataSeeding = Scope.ServiceProvider.GetRequiredService<IDataSeeding>();
-            await ObjOfDataSeeding.DataSeedAsync(); 
+            await ObjOfDataSeeding.DataSeedAsync();
             #endregion
 
             #region  Configure the HTTP request pipeline.
+
+            app.UseMiddleware<CustomeExceptionHandlerMidelWare>();
+
+            //Custome Midel ware
+            //app.Use(async (HttpContext, RequestDelegate) =>
+            //{
+            //    Console.WriteLine("Hello Start");
+            //    await RequestDelegate.Invoke(); // next MidelWare
+            //    Console.WriteLine("Hello End");
+            //    Console.WriteLine(HttpContext.Response.Body);
+            //});
+
+
+
+
 
             #region Added Authomticly
             if (app.Environment.IsDevelopment())
