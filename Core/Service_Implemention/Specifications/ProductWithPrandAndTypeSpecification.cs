@@ -44,6 +44,8 @@ namespace Service_Implemention.Specifications
 
             ApplyPagention(productQuery.pageSize, productQuery.PageIndex);
         }
+
+        //Get By Id
         public ProductWithPrandAndTypeSpecification(int id) : base(P => P.Id == id)
         {
             AddInclude(P => P.ProductBrand);

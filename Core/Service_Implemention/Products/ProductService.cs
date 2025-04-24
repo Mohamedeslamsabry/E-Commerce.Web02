@@ -19,18 +19,16 @@ namespace Service_Implemention.Products
         #region GetAllProductsAsync
         public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery)
         {
-            #region Paggention
-            var spec = new ProductCountSpecification(productQuery);
-            var TotalCount = await _unitOfWork.genricRepository<Product, int>().CountAsync(spec);
-            if (productQuery.pageSize == 0)
-            {
-                productQuery.pageSize = TotalCount;
-            }
-            #endregion
 
             var Specification = new ProductWithPrandAndTypeSpecification(productQuery);
             var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync(Specification);
             var ProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+
+            #region Paggention
+            var spec = new ProductCountSpecification(productQuery);
+            var TotalCount = await _unitOfWork.genricRepository<Product, int>().CountAsync(spec);
+            #endregion
+
             return new PaginatedResult<ProductDto>(TotalCount, Products.Count(), productQuery.PageIndex, ProductsDto);
         }
         #endregion
