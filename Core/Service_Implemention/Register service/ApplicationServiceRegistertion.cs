@@ -17,7 +17,7 @@ namespace Service_Implemention.Register_service
         {
             Services.AddAutoMapper(typeof(AssemblyRef).Assembly);
             Services.AddScoped<IServiceManger, ServiceManger>();
-            Services.AddScoped<IBasketService, BasketService>();
+            //Services.AddScoped<IBasketService, BasketService>(); // Becouse ServiceManger
             return Services;
         }
      

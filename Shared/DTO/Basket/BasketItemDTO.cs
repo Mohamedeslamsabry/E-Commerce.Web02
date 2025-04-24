@@ -11,7 +11,7 @@ namespace Shared.DTO.Basket
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public string PictureUrl { get; set; } = null!;
+        public string? PictureUrl { get; set; } //= null!;
         [Range(1,int.MaxValue)]
         public decimal Price { get; set; }
         [Range(1, 100)]

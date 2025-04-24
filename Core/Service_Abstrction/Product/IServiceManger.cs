@@ -9,5 +9,6 @@ namespace Service_Abstrction.Product
     public interface IServiceManger
     {
         public IProductService productService { get; }
+        public IBasketService BasketService { get; }
     }
 }
