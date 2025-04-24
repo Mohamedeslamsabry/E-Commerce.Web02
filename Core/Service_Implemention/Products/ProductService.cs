@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain_Layer.Contract;
+using Domain_Layer.Exceptions;
 using Domain_Layer.Models;
 using Service_Abstrction.Product;
 using Service_Implemention.Specifications;
@@ -38,8 +39,12 @@ namespace Service_Implemention.Products
         {
             var Specification = new ProductWithPrandAndTypeSpecification(id);
             var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(Specification);
-            return _mapper.Map<Product, ProductDto>(Product!);
-        } 
+            if (Product is null)
+            {
+                throw new ProductNotFoundException(id);
+            }
+            return _mapper.Map<Product, ProductDto>(Product);
+        }
         #endregion
 
         #region GetAllBrandsAsync
