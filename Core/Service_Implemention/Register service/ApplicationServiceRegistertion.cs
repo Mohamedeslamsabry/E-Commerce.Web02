@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Service_Abstrction.Product;
+using Service_Implemention.Basket;
 using Service_Implemention.Products;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Service_Implemention.Register_service
         {
             Services.AddAutoMapper(typeof(AssemblyRef).Assembly);
             Services.AddScoped<IServiceManger, ServiceManger>();
+            Services.AddScoped<IBasketService, BasketService>();
             return Services;
         }
      
