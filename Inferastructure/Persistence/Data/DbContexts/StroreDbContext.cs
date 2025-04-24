@@ -1,4 +1,4 @@
-﻿using Domain_Layer.Models;
+﻿using Domain_Layer.Models.Prpducts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

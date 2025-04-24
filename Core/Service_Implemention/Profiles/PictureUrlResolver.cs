@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.Execution;
-using Domain_Layer.Models;
+using Domain_Layer.Models.Prpducts;
 using Microsoft.Extensions.Configuration;
 using Shared.DTO.Product;
 using System;

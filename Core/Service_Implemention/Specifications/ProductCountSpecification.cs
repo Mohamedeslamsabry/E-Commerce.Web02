@@ -1,11 +1,11 @@
-﻿using Domain_Layer.Models;
-using Shared.Enums;
+﻿using Shared.Enums;
 using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain_Layer.Models.Prpducts;
 
 namespace Service_Implemention.Specifications
 {
