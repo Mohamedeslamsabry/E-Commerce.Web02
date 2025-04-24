@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.Configuration;
+using StackExchange.Redis;
 namespace Persistence.Register_Service
 {
     public static class InferastructureReisterService
@@ -19,6 +20,17 @@ namespace Persistence.Register_Service
 
             #region UnitOfWork
             Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            #endregion
+
+            #region BasketReposiatry
+            Services.AddScoped<IBasketReposatiry, BasketReposiatry>();
+            #endregion
+
+            #region ConnectionMultiplexer
+            Services.AddSingleton<IConnectionMultiplexer>( (_) =>
+            {
+               return ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RediusConnection"));
+            });
             #endregion
 
             return Services;
