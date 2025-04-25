@@ -24,6 +24,12 @@ namespace Service_Implemention.Specifications
 
         /*= new List<Expression<Func<TEntity, object>>>();*/
 
+        #region Set Include
+        protected void AddInclude(Expression<Func<TEntity, object>> incudeExpression)
+        {
+            IncudeExpression.Add(incudeExpression);
+        }
+        #endregion
 
         #region Order By
         public Expression<Func<TEntity, object>> OrderBy { get; private set; }
@@ -43,13 +49,6 @@ namespace Service_Implemention.Specifications
         {
             OrderByDesc = orderByDesc;
         } 
-        #endregion
-
-        #region Set Include
-        protected void AddInclude(Expression<Func<TEntity, object>> incudeExpression)
-        {
-            IncudeExpression.Add(incudeExpression);
-        }
         #endregion
 
         #region Pagention

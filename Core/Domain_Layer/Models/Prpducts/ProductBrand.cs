@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain_Layer.Models
+namespace Domain_Layer.Models.Prpducts
 {
-    public class ProductType : BaseEntity<int>
+    public class ProductBrand : BaseEntity<int>
     {
         public string Name { get; set; } = null!;
-
-       // public ICollection<Product> products { get; set; }
-
+    
     }
 }

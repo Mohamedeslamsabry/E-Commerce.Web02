@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain_Layer.Contract;
-using Domain_Layer.Models;
+using Domain_Layer.Exceptions;
+using Domain_Layer.Models.Prpducts;
 using Service_Abstrction.Product;
 using Service_Implemention.Specifications;
 using Shared;
@@ -19,11 +20,16 @@ namespace Service_Implemention.Products
         #region GetAllProductsAsync
         public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParamter productQuery)
         {
+
             var Specification = new ProductWithPrandAndTypeSpecification(productQuery);
             var Products = await _unitOfWork.genricRepository<Product, int>().GetAllAsync(Specification);
             var ProductsDto = _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+
+            #region Paggention
             var spec = new ProductCountSpecification(productQuery);
             var TotalCount = await _unitOfWork.genricRepository<Product, int>().CountAsync(spec);
+            #endregion
+
             return new PaginatedResult<ProductDto>(TotalCount, Products.Count(), productQuery.PageIndex, ProductsDto);
         }
         #endregion
@@ -33,8 +39,12 @@ namespace Service_Implemention.Products
         {
             var Specification = new ProductWithPrandAndTypeSpecification(id);
             var Product = await _unitOfWork.genricRepository<Product, int>().GetByIdAsync(Specification);
-            return _mapper.Map<Product, ProductDto>(Product!);
-        } 
+            if (Product is null)
+            {
+                throw new ProductNotFoundException(id);
+            }
+            return _mapper.Map<Product, ProductDto>(Product);
+        }
         #endregion
 
         #region GetAllBrandsAsync

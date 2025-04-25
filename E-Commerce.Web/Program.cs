@@ -1,14 +1,10 @@
-
 using Domain_Layer.Contract;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
-using Persistence.Data.DbContexts;
-using Persistence.Implment_Repo;
-using Service_Abstrction.Product;
-using Service_Implemention;
-using Service_Implemention.Products;
-using Service_Implemention.Profiles;
-using System.Threading.Tasks;
+using E_Commerce.Web.Exceptions_MidelWare;
+using E_Commerce.Web.Extension;
+using E_Commerce.Web.Factories;
+using Microsoft.AspNetCore.Mvc;
+using Persistence.Register_Service;
+using Service_Implemention.Register_service;
 
 namespace E_Commerce.Web
 {
@@ -24,38 +20,28 @@ namespace E_Commerce.Web
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            #region Add Swigwe Service
+            builder.Services.AddSwigerService();
+            #endregion
 
             #endregion
 
             #region Added By Me
 
-            #region AddDbContext
-            builder.Services.AddDbContext<StroreDbContext>(options =>
-                  {
-                      options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
-                  });
-            #endregion
-
-            #region AddScoped => DataSeeding
-            builder.Services.AddScoped<IDataSeeding, DataSeeding>();
-            #endregion
-
-            #region UnitOfWork
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            #endregion
-
-            #region autoMaper
-
-            builder.Services.AddAutoMapper(typeof(AssemblyRef).Assembly);
+            #region Presitance (Register Service) 
+            builder.Services.AddInferstructureService(builder.Configuration);
 
             #endregion
 
-            #region ServiceManger
-            builder.Services.AddScoped<IServiceManger, ServiceManger>();
+            #region Service Implement (Register)
+            builder.Services.AddApplictionService();
             #endregion
 
+            #endregion
+
+            #region Model State (Validtion)
+            builder.Services.AddWebAppictionService();
             #endregion
 
             #endregion
@@ -63,13 +49,21 @@ namespace E_Commerce.Web
             var app = builder.Build();
 
             #region DataSeeding
-            using var Scope = app.Services.CreateScope();
-            var ObjOfDataSeeding = Scope.ServiceProvider.GetRequiredService<IDataSeeding>();
-            await ObjOfDataSeeding.DataSeedAsync(); 
+            await app.DataSeedingAsync();
             #endregion
 
             #region  Configure the HTTP request pipeline.
 
+            app.UseCustomeExceptionMidelWare();
+
+            //Custome Midel ware
+            //app.Use(async (HttpContext, RequestDelegate) =>
+            //{
+            //    Console.WriteLine("Hello Start");
+            //    await RequestDelegate.Invoke(); // next MidelWare
+            //    Console.WriteLine("Hello End");
+            //    Console.WriteLine(HttpContext.Response.Body);
+            //});
             #region Added Authomticly
             if (app.Environment.IsDevelopment())
             {

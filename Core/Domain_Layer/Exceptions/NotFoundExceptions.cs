@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain_Layer.Models
+namespace Domain_Layer.Exceptions
 {
-    public class ProductBrand : BaseEntity<int>
+    public abstract class NotFoundExceptions(string Message) : Exception(Message)
     {
-        public string Name { get; set; } = null!;
-    
+
     }
 }
