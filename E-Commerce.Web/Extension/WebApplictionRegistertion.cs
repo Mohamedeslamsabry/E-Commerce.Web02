@@ -17,5 +17,12 @@ namespace E_Commerce.Web.Extension
             app.UseMiddleware<CustomeExceptionHandlerMidelWare>();
             return app;
         }
+
+        public static IApplicationBuilder UseSwiggerMidelWare(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            return app;
+        }
     }
 }

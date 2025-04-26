@@ -29,7 +29,7 @@ namespace Persistence.Register_Service
             #region ConnectionMultiplexer
             Services.AddSingleton<IConnectionMultiplexer>( (_) =>
             {
-               return ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RediusConnection"));
+               return ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RediusConnection")!);
             });
             #endregion
 

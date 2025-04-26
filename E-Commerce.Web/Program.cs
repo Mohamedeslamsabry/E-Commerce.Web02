@@ -54,8 +54,11 @@ namespace E_Commerce.Web
 
             #region  Configure the HTTP request pipeline.
 
+            #region Custome Midel ware
             app.UseCustomeExceptionMidelWare();
+            #endregion
 
+            #region Old Way Custome Midel ware
             //Custome Midel ware
             //app.Use(async (HttpContext, RequestDelegate) =>
             //{
@@ -63,12 +66,13 @@ namespace E_Commerce.Web
             //    await RequestDelegate.Invoke(); // next MidelWare
             //    Console.WriteLine("Hello End");
             //    Console.WriteLine(HttpContext.Response.Body);
-            //});
+            //}); 
+            #endregion
+
             #region Added Authomticly
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwiggerMidelWare();
             }
 
             app.UseHttpsRedirection();
@@ -78,10 +82,6 @@ namespace E_Commerce.Web
 
 
             app.MapControllers();
-            #endregion
-
-            #region Added By Me
-
             #endregion
 
             #endregion
