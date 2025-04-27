@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.Configuration;
+using Persistence.Data.Identity;
 using StackExchange.Redis;
 namespace Persistence.Register_Service
 {
@@ -30,6 +31,13 @@ namespace Persistence.Register_Service
             Services.AddSingleton<IConnectionMultiplexer>( (_) =>
             {
                return ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RediusConnection")!);
+            });
+            #endregion
+
+            #region IdentytDContext
+            Services.AddDbContext<StoreIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
             #endregion
 
