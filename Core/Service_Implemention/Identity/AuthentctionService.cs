@@ -6,7 +6,7 @@ using Shared.DTO.Identity;
 
 namespace Service_Implemention.Identity
 {
-    class AuthentctionService(UserManager<ApplicationUser> _userManager ) : IAuthenticationService
+    class AuthentctionService(UserManager<ApplicationUser> _userManager) : IAuthenticationService
     {
         public async Task<UserDTO> LoginAsync(LoginDTO loginDTO)
         {
@@ -52,7 +52,7 @@ namespace Service_Implemention.Identity
                 };
             }
 
-            else
+            else // Occures ModelState error Example Passowrd not Correct Microsoft configraution
             {
                 var Errors = Result.Errors.Select(E => E.Description).ToList();
                 throw new BadRequestException(Errors);

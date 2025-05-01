@@ -43,7 +43,7 @@ namespace Persistence.Register_Service
             });
             #endregion
 
-            #region RoleManger And UserManger
+            #region Seeding RoleManger And UserManger
             Services.AddIdentityCore<ApplicationUser>() // Options ممكن ابعت
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<StoreIdentityDbContext>();

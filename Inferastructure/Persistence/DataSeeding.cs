@@ -73,7 +73,7 @@ namespace Persistence
             }
         }
 
-        public  async Task IdentityDataSeedingAsync()
+        public async Task IdentityDataSeedingAsync()
         {
             try
             {
@@ -105,10 +105,10 @@ namespace Persistence
                     await _userManager.CreateAsync(User02, "P@ssw0rd");
 
                     await _userManager.AddToRoleAsync(User01, "Admin");
-                    await _userManager.AddToRoleAsync(User01, "SuperAdmin");
+                    await _userManager.AddToRoleAsync(User02, "SuperAdmin");
                 }
 
-               await _storeIdentityDb.SaveChangesAsync();
+                await _storeIdentityDb.SaveChangesAsync();
 
             }
             catch (Exception exc)

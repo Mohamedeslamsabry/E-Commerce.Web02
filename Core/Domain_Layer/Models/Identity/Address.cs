@@ -13,6 +13,6 @@
         #endregion
 
         public ApplicationUser User { get; set; } = null!; // IEnumrable Whyyy ?? Becouse This User Have one address
-        public string UserId { get; set; } //fk [Unique Index]
+        public string UserId { get; set; } = null!; //fk [Unique Index]
     }
 }
