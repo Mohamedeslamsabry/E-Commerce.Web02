@@ -1,18 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Service_Abstrction.Product;
 using Shared.DTO.Basket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Presentation.ApiController
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BasketController(IServiceManger _serviceManger) : ControllerBase
+
+    public class BasketController(IServiceManger _serviceManger) :ApiBaseController
     {
         #region Get User Basket 
         [HttpGet]

@@ -1,5 +1,8 @@
 ﻿
+using Domain_Layer.Models.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Persistence.Data.Identity;
 using StackExchange.Redis;
 namespace Persistence.Register_Service
 {
@@ -29,8 +32,21 @@ namespace Persistence.Register_Service
             #region ConnectionMultiplexer
             Services.AddSingleton<IConnectionMultiplexer>( (_) =>
             {
-               return ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RediusConnection"));
+               return ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RediusConnection")!);
             });
+            #endregion
+
+            #region IdentytDContext
+            Services.AddDbContext<StoreIdentityDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
+            });
+            #endregion
+
+            #region Seeding RoleManger And UserManger
+            Services.AddIdentityCore<ApplicationUser>() // Options ممكن ابعت
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<StoreIdentityDbContext>();
             #endregion
 
             return Services;

@@ -37,21 +37,31 @@ namespace E_Commerce.Web.Exceptions_MidelWare
         private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Response.StatusCode = ex switch
-            {
-                NotFoundExceptions => StatusCodes.Status404NotFound,
-                _ => StatusCodes.Status500InternalServerError
-            };
+
             //context.Response.ContentType = "Application/Json";
             var response = new ErrorToReturn()
             {
                 ErrorMessage = ex.Message,
-                StatusCode = context.Response.StatusCode //Number In Body
+                //StatusCode = context.Response.StatusCode //Number In Body
+            };
+
+            response.StatusCode = ex switch
+            {
+                NotFoundExceptions => StatusCodes.Status404NotFound,
+                BadRequestException badRequestException => GetErrors(badRequestException, response),
+                UnauthorizedException => StatusCodes.Status401Unauthorized,
+                _ => StatusCodes.Status500InternalServerError
             };
 
             //var ResponseToReturn = JsonSerializer.Serialize(response);
-
+            context.Response.StatusCode = response.StatusCode;
             await context.Response.WriteAsJsonAsync(response);
+        }
+
+        private static int GetErrors(BadRequestException badRequestException, ErrorToReturn response)
+        {
+            response.Errors = badRequestException.Errors;
+            return StatusCodes.Status400BadRequest;
         }
 
         private static async Task HandleNotFoundEndPoint(HttpContext context)

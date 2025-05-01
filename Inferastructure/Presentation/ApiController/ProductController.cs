@@ -1,22 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service_Abstrction.Product;
 using Shared;
 using Shared.DTO.Product;
-using Shared.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Presentation.ApiController
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductController(IServiceManger _serviceManger) : ControllerBase
+    public class ProductController(IServiceManger _serviceManger) : ApiBaseController
     {
         #region Get All Product
 
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProduct([FromQuery] ProductQueryParamter productQuery)//int ? BrandId , int ? TypeId , ProductSortingSpecifications productSorting
         {

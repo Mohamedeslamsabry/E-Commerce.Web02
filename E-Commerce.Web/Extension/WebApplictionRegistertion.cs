@@ -10,11 +10,19 @@ namespace E_Commerce.Web.Extension
             using var Scope = app.Services.CreateScope();
             var ObjOfDataSeeding = Scope.ServiceProvider.GetRequiredService<IDataSeeding>();
             await ObjOfDataSeeding.DataSeedAsync();
+            await ObjOfDataSeeding.IdentityDataSeedingAsync();
         }
 
         public static IApplicationBuilder UseCustomeExceptionMidelWare(this IApplicationBuilder app)
         {
             app.UseMiddleware<CustomeExceptionHandlerMidelWare>();
+            return app;
+        }
+
+        public static IApplicationBuilder UseSwiggerMidelWare(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
             return app;
         }
     }

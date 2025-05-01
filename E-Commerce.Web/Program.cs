@@ -44,6 +44,10 @@ namespace E_Commerce.Web
             builder.Services.AddWebAppictionService();
             #endregion
 
+            #region AddJWTService
+            builder.Services.AddJWTService(builder.Configuration); 
+            #endregion
+
             #endregion
 
             var app = builder.Build();
@@ -54,8 +58,11 @@ namespace E_Commerce.Web
 
             #region  Configure the HTTP request pipeline.
 
+            #region Custome Midel ware
             app.UseCustomeExceptionMidelWare();
+            #endregion
 
+            #region Old Way Custome Midel ware
             //Custome Midel ware
             //app.Use(async (HttpContext, RequestDelegate) =>
             //{
@@ -63,25 +70,23 @@ namespace E_Commerce.Web
             //    await RequestDelegate.Invoke(); // next MidelWare
             //    Console.WriteLine("Hello End");
             //    Console.WriteLine(HttpContext.Response.Body);
-            //});
+            //}); 
+            #endregion
+
             #region Added Authomticly
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwiggerMidelWare();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
             app.MapControllers();
-            #endregion
-
-            #region Added By Me
-
             #endregion
 
             #endregion
