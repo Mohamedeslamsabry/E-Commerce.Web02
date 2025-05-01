@@ -10,7 +10,7 @@ namespace Presentation.ApiController
     {
         #region Get All Product
 
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProduct([FromQuery] ProductQueryParamter productQuery)//int ? BrandId , int ? TypeId , ProductSortingSpecifications productSorting
         {
