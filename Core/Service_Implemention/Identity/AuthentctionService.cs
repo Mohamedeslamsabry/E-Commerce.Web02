@@ -86,14 +86,13 @@ namespace Service_Implemention.Identity
 
             var Token = new JwtSecurityToken
                             (
-                               issuer: _configuration["SecritKey:issuer"], //Claim
-                               audience: _configuration["SecritKey:audience"],//Claim
-                               expires: DateTime.Now.AddHours(1),//Claim
+                               issuer: _configuration.GetSection("JWTOptions")["Issuer"], //Claim
+                               audience: _configuration.GetSection("JWTOptions")["Audience"],//Claim
                                claims: Clamis,//Claim
+                               expires: DateTime.Now.AddHours(1),//Claim
                                signingCredentials: Credentials
                             );
-            var returnToken = new JwtSecurityTokenHandler().WriteToken(Token);
-            return returnToken;
+            return new JwtSecurityTokenHandler().WriteToken(Token);
         }
     }
 }

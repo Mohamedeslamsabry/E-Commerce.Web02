@@ -42,10 +42,10 @@ namespace E_Commerce.Web.Exceptions_MidelWare
             var response = new ErrorToReturn()
             {
                 ErrorMessage = ex.Message,
-                StatusCode = context.Response.StatusCode //Number In Body
+                //StatusCode = context.Response.StatusCode //Number In Body
             };
 
-            context.Response.StatusCode = ex switch
+            response.StatusCode = ex switch
             {
                 NotFoundExceptions => StatusCodes.Status404NotFound,
                 BadRequestException badRequestException => GetErrors(badRequestException, response),
