@@ -141,7 +141,7 @@ namespace Service_Implemention.Identity
         }
         #endregion
 
-
+        #region UpdateAddressAsync
         public async Task<AddressDTO> UpdateAddressAsync(string email, AddressDTO addressDTO)
         {
             var User = await _userManager.Users.Include(U => U.Address)
@@ -158,9 +158,10 @@ namespace Service_Implemention.Identity
             {
                 User.Address = _mapper.Map<AddressDTO, Address>(addressDTO);
             }
-             await _userManager.UpdateAsync(User);
+            await _userManager.UpdateAsync(User);
 
             return _mapper.Map<AddressDTO>(User.Address);
-        }
+        } 
+        #endregion
     }
 }
