@@ -24,6 +24,7 @@
         public DeliveryMethod DeliveryMethod { get; set; } = null!;
         public int DeliveryMethodId { get; set; } // Fk 
         #endregion
+
         public OrderState State { get; set; } = OrderState.Pending;
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
 

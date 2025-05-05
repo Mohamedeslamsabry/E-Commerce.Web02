@@ -13,6 +13,7 @@ namespace Service_Implemention.Orders
 {
     public class OrderService(IUnitOfWork _unitOfWork, IBasketReposatiry _basketReposatiry , IMapper _mapper) : IOrderService
     {
+        #region Create Order
         public async Task<OrderToReturnDTO> CreateOrder(OrderDTO orderDTO, string Email)
         {
             #region Step01 OrderAddress
@@ -50,7 +51,7 @@ namespace Service_Implemention.Orders
 
             #region Step04 SubTotal
             //SubTotal
-            var SubbTotal = Orderitems.Sum(O=>O.Quantity * O.Price);
+            var SubbTotal = Orderitems.Sum(O => O.Quantity * O.Price);
             #endregion
 
             #region Create Object From Order
@@ -75,6 +76,9 @@ namespace Service_Implemention.Orders
                     ProductName = Product.Name
                 }
             };
-        }
+        } 
+        #endregion
+
+
     }
 }
