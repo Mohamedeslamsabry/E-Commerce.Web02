@@ -4,7 +4,7 @@
     {
         public string UserEmail { get; set; } = null!;
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public OrderAddress Address { get; set; } = null!;
+        public OrderAddress Address { get; set; } = null!; // Owned
         public OrderState State { get; set; } = OrderState.Pending;
 
         #region DeliveryMethod And Fk
