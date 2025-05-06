@@ -8,13 +8,14 @@ using Domain_Layer.Exceptions;
 using Shared.DTO.Basket;
 using Domain_Layer.Models.Prpducts;
 using Domain_Layer.Models.Basket;
+using Service_Implemention.Specifications;
 
 namespace Service_Implemention.Orders
 {
-    public class OrderService(IUnitOfWork _unitOfWork, IBasketReposatiry _basketReposatiry , IMapper _mapper) : IOrderService
+    public class OrderService(IUnitOfWork _unitOfWork, IBasketReposatiry _basketReposatiry, IMapper _mapper) : IOrderService
     {
         #region Create Order
-        public async Task<OrderToReturnDTO> CreateOrder(OrderDTO orderDTO, string Email)
+        public async Task<OrderToReturnDTO> CreateOrderAsync(OrderDTO orderDTO, string Email)
         {
             #region Step01 OrderAddress
             //Map From AddressDTO To OrderAddress
@@ -76,9 +77,33 @@ namespace Service_Implemention.Orders
                     ProductName = Product.Name
                 }
             };
-        } 
+        }
         #endregion
 
+        #region GetDelivaryMethodAsync
+        public async Task<IEnumerable<DelivaryMethodDTO>> GetDelivaryMethodAsync()
+        {
+            var Delivary = await _unitOfWork.genricRepository<DeliveryMethod, int>().GetAllAsync();
+            return _mapper.Map<IEnumerable<DeliveryMethod>, IEnumerable<DelivaryMethodDTO>>(Delivary);
+        }
+        #endregion
 
+        #region AllOrderAsync
+        public async Task<IEnumerable<OrderToReturnDTO>> AllOrderAsync(string Email)
+        {
+            var Spec = new OrderSpecification(Email);
+            var orders = await _unitOfWork.genricRepository<Order, Guid>().GetAllAsync(Spec);
+            return _mapper.Map<IEnumerable<Order>, IEnumerable<OrderToReturnDTO>>(orders);
+        }
+        #endregion
+
+        #region GetOrderByIdAsync
+        public async Task<OrderToReturnDTO> GetOrderByIdAsync(Guid id)
+        {
+            var Spec = new OrderSpecification(id);
+            var Order = await _unitOfWork.genricRepository<Order,Guid>().GetByIdAsync(Spec);
+            return _mapper.Map<Order, OrderToReturnDTO>(Order!);
+        } 
+        #endregion
     }
 }

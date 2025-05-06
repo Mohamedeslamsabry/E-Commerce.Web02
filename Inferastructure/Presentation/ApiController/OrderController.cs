@@ -13,7 +13,7 @@ namespace Presentation.ApiController
         public async Task<ActionResult<OrderToReturnDTO>> CreateOrder(OrderDTO orderDTO)
         {
             //var Email = User.FindFirstValue(ClaimTypes.Email);
-            var Result = await _serviceManger.orderService.CreateOrder(orderDTO, GetEmailFromToken());
+            var Result = await _serviceManger.orderService.CreateOrderAsync(orderDTO, GetEmailFromToken());
             return Ok(Result);
         }
     }
