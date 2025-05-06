@@ -137,7 +137,7 @@ namespace Service_Implemention.Identity
             if (User.Address is not null)
                 return _mapper.Map<Address, AddressDTO>(User.Address);
             else
-                throw new AddressNotFoundException(User.UserName!);
+                throw new AddressNotFoundException(email);
         }
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using Domain_Layer.Contract;
 using Domain_Layer.Models.Identity;
+using Domain_Layer.Models.OrderModule;
 using Domain_Layer.Models.Prpducts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,17 @@ namespace Persistence
                         await _stroreDbContext.AddRangeAsync(Product);
                     }
                 }
+
+                if (!_stroreDbContext.Set<DeliveryMethod>().Any())
+                {
+                    var DelivaryData = File.OpenRead(@"..\Inferastructure\Persistence\Data\DataSeed\delivery.json");
+                    var Delivary = await JsonSerializer.DeserializeAsync<List<DeliveryMethod>>(DelivaryData);
+                    if (Delivary != null && Delivary.Any())
+                    {
+                        await _stroreDbContext.AddRangeAsync(Delivary);
+                    }
+                }
+
 
                 await _stroreDbContext.SaveChangesAsync();
             }

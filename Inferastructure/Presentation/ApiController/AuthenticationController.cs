@@ -56,12 +56,15 @@ namespace Presentation.ApiController
             return Ok(Address);
         }
         #endregion
+
+        #region UpdateAddress
         [HttpPut("Address")]
         public async Task<ActionResult<AddressDTO>> UpdateAddress(AddressDTO addressDTO)
         {
             var Email = User.FindFirstValue(ClaimTypes.Email);
             var address = await _serviceManger.authenticationService.UpdateAddressAsync(Email!, addressDTO);
             return Ok(address);
-        }
+        } 
+        #endregion
     }
 }
