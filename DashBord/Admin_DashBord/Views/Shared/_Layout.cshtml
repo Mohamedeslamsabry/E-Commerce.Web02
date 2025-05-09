@@ -9,6 +9,7 @@
 </head>
 <body>
     <header>
+
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Admin Dashboard</a>
@@ -23,6 +24,7 @@
             </div>
 
         </nav>
+
     </header>
 
 
@@ -32,23 +34,28 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Security</div>
+
                         <a class="nav-link" asp-controller="Role" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Roles
                         </a>
+
                         <a class="nav-link" asp-controller="User" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                             Users
                         </a>
+
                         <div class="sb-sidenav-menu-heading">Website</div>
                         <a class="nav-link" asp-controller="Product" asp-action="Index">
                             <div class="sb-nav-link-icon"></div>
                             Products
                         </a>
+
                         <a class="nav-link" asp-controller="Brand" asp-action="Index">
                             <div class="sb-nav-link-icon"></div>
                             Product Brand
                         </a>
+
                     </div>
                 </div>
 
