@@ -31,7 +31,7 @@ namespace Admin_DashBord.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 ModelState.AddModelError(string.Empty, "Role Alrady exist");
-                return View(nameof(Index),await _roleManager.Roles.ToListAsync());
+                return View(nameof(Index), await _roleManager.Roles.ToListAsync());
             }
             ModelState.AddModelError(string.Empty, "Try Again");
             return RedirectToAction(nameof(Index));
