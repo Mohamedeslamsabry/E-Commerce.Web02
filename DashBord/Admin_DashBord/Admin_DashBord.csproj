@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\E-Commerce.Web\E-Commerce.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
 </Project>
