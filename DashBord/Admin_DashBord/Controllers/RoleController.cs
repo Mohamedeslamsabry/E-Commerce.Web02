@@ -46,7 +46,7 @@ namespace Admin_DashBord.Controllers
             var role = await _roleManager.FindByIdAsync(id);
             if (role is not null)
             {
-                await _roleManager.DeleteAsync(role!);
+                await _roleManager.DeleteAsync(role);
             }
             return RedirectToAction(nameof(Index));
         }
@@ -56,7 +56,7 @@ namespace Admin_DashBord.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-           var role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
             if (role is null)
             {
                 ModelState.AddModelError(string.Empty, "No Role Found Wit This Id");
