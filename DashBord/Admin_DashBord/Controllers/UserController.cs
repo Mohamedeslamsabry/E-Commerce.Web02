@@ -34,18 +34,18 @@ namespace Admin_DashBord.Controllers
         {
             var User = await _userManager.FindByIdAsync(Id) ?? throw new UserNotFoundException(Id);
 
-            var AllRole = await _roleManager.Roles.ToListAsync(); 
+            var AllRole = await _roleManager.Roles.ToListAsync();
             // To Display All role In application
 
             var UserView = new UserRoleViewModel()
             {
                 UserName = User.UserName!,
                 UserId = User.Id,
-                Roles = AllRole.Select( r => new RoleEditViewModel()
+                Roles = AllRole.Select(r => new RoleEditViewModel()
                 {
                     Id = r.Id,
                     Name = r.Name!,
-                    IsSelected =  _userManager.IsInRoleAsync(User, r.Name!).Result
+                    IsSelected = _userManager.IsInRoleAsync(User, r.Name!).Result
                 }).ToList()
             };
             return View(UserView);

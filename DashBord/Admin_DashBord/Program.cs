@@ -1,7 +1,6 @@
 ﻿using Domain_Layer.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Persistence.Data.DbContexts;
 using Persistence.Data.Identity;
 
@@ -20,7 +19,7 @@ namespace Admin_DashBord
             builder.Services.AddDbContext<StroreDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DeafultConnection"));
-               
+
             });
             #endregion
 
@@ -29,12 +28,20 @@ namespace Admin_DashBord
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
             });
-            #endregion 
+            #endregion
 
             #region ApplicationUser And IdentityRole
-            builder.Services.AddIdentityCore<ApplicationUser>() // Options ممكن ابعت
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<StoreIdentityDbContext>();
+
+            #region Can Not
+            //builder.Services.AddIdentityCore<ApplicationUser>() // Options ممكن ابعت
+            //    .AddRoles<IdentityRole>()
+            //    .AddSignInManager()
+            //    .AddEntityFrameworkStores<StoreIdentityDbContext>(); 
+            #endregion
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+              .AddEntityFrameworkStores<StoreIdentityDbContext>()
+              .AddDefaultTokenProviders();
             #endregion
 
             #endregion
@@ -42,7 +49,7 @@ namespace Admin_DashBord
             var app = builder.Build();
 
             #region Configure the HTTP request pipeline.
-           
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -59,7 +66,7 @@ namespace Admin_DashBord
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}"); 
+                pattern: "{controller=Admin}/{action=Login}/{id?}");
             #endregion
 
             app.Run();
