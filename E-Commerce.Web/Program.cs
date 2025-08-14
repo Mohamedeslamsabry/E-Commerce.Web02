@@ -5,6 +5,7 @@ using E_Commerce.Web.Factories;
 using Microsoft.AspNetCore.Mvc;
 using Persistence.Register_Service;
 using Service_Implemention.Register_service;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace E_Commerce.Web
 {
@@ -74,9 +75,13 @@ namespace E_Commerce.Web
             #endregion
 
             #region Added Authomticly
+
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwiggerMidelWare();
+
+                
             }
 
             app.UseHttpsRedirection();
