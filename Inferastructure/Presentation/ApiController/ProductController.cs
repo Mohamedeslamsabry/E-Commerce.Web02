@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Attribute;
 using Service_Abstrction.Product;
 using Shared;
 using Shared.DTO.Product;
@@ -10,8 +11,9 @@ namespace Presentation.ApiController
     {
         #region Get All Product
 
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         [HttpGet]
+        [Cash]
         public async Task<ActionResult<PaginatedResult<ProductDto>>> GetAllProduct([FromQuery] ProductQueryParamter productQuery)//int ? BrandId , int ? TypeId , ProductSortingSpecifications productSorting
         {
             var Products = await _serviceManger.productService.GetAllProductsAsync(productQuery);

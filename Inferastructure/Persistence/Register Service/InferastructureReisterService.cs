@@ -49,6 +49,8 @@ namespace Persistence.Register_Service
                 .AddEntityFrameworkStores<StoreIdentityDbContext>();
             #endregion
 
+            Services.AddScoped<ICashRepo, CashRepositary>();
+
             return Services;
         }
     }

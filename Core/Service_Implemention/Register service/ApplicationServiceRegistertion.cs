@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Service_Abstrction.Product;
 using Service_Implemention.Basket;
+using Service_Implemention.Cashing;
 using Service_Implemention.Identity;
 using Service_Implemention.Orders;
 using Service_Implemention.Products;
@@ -47,7 +48,7 @@ namespace Service_Implemention.Register_service
             );
 
 
-
+            Services.AddScoped<ICashService, CashService>();
 
 
 
