@@ -41,9 +41,9 @@ namespace Persistence.Register_Service
             {
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
-            #endregion
+            #endregion 
 
-            #region Seeding RoleManger And UserManger
+            #region ApplicationUser And IdentityRole
             Services.AddIdentityCore<ApplicationUser>() // Options ممكن ابعت
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<StoreIdentityDbContext>();
