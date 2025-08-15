@@ -18,13 +18,13 @@ namespace Domain_Layer.Models.Prpducts
         #region RelationShip
 
         #region Relation
-        public ProductBrand ProductBrand { get; set; }
+        public ProductBrand productBrand { get; set; }
 
         public int BrandId { get; set; } //Fk 
         #endregion
 
         #region Relation
-        public ProductType ProductType { get; set; }
+        public ProductType productType { get; set; }
         public int TypeId { get; set; } //Fk 
         #endregion
 

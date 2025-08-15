@@ -11,8 +11,8 @@ namespace Shared
     {
         public int? BrandId { get; set; }
         public int? TypeId { get; set; }
-        public ProductSortingSpecifications productSorting { get; set; }
-        public string? SearchValue { get; set; }
+        public ProductSortingSpecifications sort { get; set; }
+        public string? search { get; set; }
 
         #region pagention
         private const int DeafultPageSize = 5;

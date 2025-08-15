@@ -14,7 +14,7 @@ namespace Service_Implemention.Profiles
 
 
             CreateMap<Order, OrderToReturnDTO>()
-                .ForMember(src => src.DeliveryMethodName, dist => dist.MapFrom(O => O.DeliveryMethod.ShortName));
+                .ForMember(src => src.deliveryMethod, dist => dist.MapFrom(O => O.DeliveryMethod.ShortName));
 
             CreateMap<OrderItems, OrderItemDTO>()
                 .ForMember(Src => Src.ProductName, dist => dist.MapFrom(O => O.Product.ProductName))

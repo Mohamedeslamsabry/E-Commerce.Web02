@@ -27,7 +27,7 @@ namespace Presentation.ApiController
         #endregion
 
         #region CheckEmail
-        [HttpGet("CheckEmail")]
+        [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmail(string email)
         {
             var Result = await _serviceManger.authenticationService.CheckEmailAsync(email);

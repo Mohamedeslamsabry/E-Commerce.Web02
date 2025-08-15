@@ -14,14 +14,14 @@ namespace Persistence.Config
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             #region ProductBrand
-            builder.HasOne(P => P.ProductBrand)
+            builder.HasOne(P => P.productBrand)
                    .WithMany()
                    .HasForeignKey(P => P.BrandId);
             #endregion
 
             #region ProductType
 
-            builder.HasOne(P => P.ProductType)
+            builder.HasOne(P => P.productType)
                 .WithMany()
                 .HasForeignKey(P => P.TypeId);
 

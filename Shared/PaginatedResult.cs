@@ -10,13 +10,13 @@ namespace Shared
     {
         public PaginatedResult(int totalCount, int pageSize, int pageIndex, IEnumerable<TEntity> data)
         {
-            TotalCount = totalCount;
+            count = totalCount;
             PageSize = pageSize;
             PageIndex = pageIndex;
             Data = data;
         }
 
-        public int TotalCount { get; set; }
+        public int count { get; set; }
         public int PageSize  { get; set; }
         public int PageIndex { get; set; }
         public IEnumerable<TEntity> Data { get; set; }

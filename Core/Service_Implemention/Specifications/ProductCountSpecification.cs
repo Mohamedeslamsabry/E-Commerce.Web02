@@ -14,7 +14,7 @@ namespace Service_Implemention.Specifications
         public ProductCountSpecification(ProductQueryParamter productQuery) :
             base(P => (!productQuery.BrandId.HasValue || P.BrandId == productQuery.BrandId) &&
                  (!productQuery.TypeId.HasValue || P.TypeId == productQuery.TypeId)
-            && (string.IsNullOrEmpty(productQuery.SearchValue) || P.Name.ToLower().Contains(productQuery.SearchValue.ToLower()))
+            && (string.IsNullOrEmpty(productQuery.search) || P.Name.ToLower().Contains(productQuery.search.ToLower()))
             )
 
         {

@@ -19,7 +19,7 @@ namespace Service_Implemention.Orders
         {
             #region Step01 OrderAddress
             //Map From AddressDTO To OrderAddress
-            var OrderAddress = _mapper.Map<AddressDTO, OrderAddress>(orderDTO.Address)
+            var OrderAddress = _mapper.Map<AddressDTO, OrderAddress>(orderDTO.shipToAddress)
                 ?? throw new AddressNotFoundException(Email);
             #endregion
 

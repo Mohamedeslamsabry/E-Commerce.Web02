@@ -17,14 +17,14 @@ namespace Service_Implemention.Specifications
         public ProductWithPrandAndTypeSpecification(ProductQueryParamter productQuery) :
             base(P => (!productQuery.BrandId.HasValue || P.BrandId == productQuery.BrandId) &&
                  (!productQuery.TypeId.HasValue || P.TypeId == productQuery.TypeId)
-            && (string.IsNullOrEmpty(productQuery.SearchValue) || P.Name.ToLower().Contains(productQuery.SearchValue.ToLower()))
+            && (string.IsNullOrEmpty(productQuery.search) || P.Name.ToLower().Contains(productQuery.search.ToLower()))
             )
 
         {
-            AddInclude(P => P.ProductBrand);
-            AddInclude(P => P.ProductType);
+            AddInclude(P => P.productBrand);
+            AddInclude(P => P.productType);
 
-            switch (productQuery.productSorting)
+            switch (productQuery.sort)
             {
                 case ProductSortingSpecifications.NameAsc:
                     SetOrdery(P => P.Name);
@@ -48,8 +48,8 @@ namespace Service_Implemention.Specifications
         //Get By Id
         public ProductWithPrandAndTypeSpecification(int id) : base(P => P.Id == id)
         {
-            AddInclude(P => P.ProductBrand);
-            AddInclude(P => P.ProductType);
+            AddInclude(P => P.productBrand);
+            AddInclude(P => P.productType);
 
         }
     }

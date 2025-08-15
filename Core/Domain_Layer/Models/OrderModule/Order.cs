@@ -8,15 +8,15 @@
         }
         public Order(string userEmail, OrderAddress address, ICollection<OrderItems> items, decimal subTotal, DeliveryMethod deliveryMethod)
         {
-            UserEmail = userEmail;
-            Address = address;
+            buyerEmail = userEmail;
+            shipToAddress = address;
             Items = items;
             SubTotal = subTotal;
             DeliveryMethod = deliveryMethod;
         }
 
-        public string UserEmail { get; set; } = null!;
-        public OrderAddress Address { get; set; } = null!; // Owned
+        public string buyerEmail { get; set; } = null!;
+        public OrderAddress shipToAddress { get; set; } = null!; // Owned
         public ICollection<OrderItems> Items { get; set; } = [];
         public decimal SubTotal { get; set; }
 
@@ -25,12 +25,12 @@
         public int DeliveryMethodId { get; set; } // Fk 
         #endregion
 
-        public OrderState State { get; set; } = OrderState.Pending;
+        public OrderState status { get; set; } = OrderState.Pending;
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
 
         //[NotMapped]
         //public decimal Total { get => SubTotal + DeliveryMethod.Price; }
-        public decimal GetTotal() => SubTotal + DeliveryMethod.Price;
+        public decimal GetTotal() => SubTotal + DeliveryMethod.Cost;
 
     }
 }

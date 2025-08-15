@@ -21,6 +21,15 @@ namespace E_Commerce.Web
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddCors(Options =>
+            {
+                Options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                });
+            });
 
             #region Add Swigwe Service
             builder.Services.AddSwigerService();
@@ -79,14 +88,13 @@ namespace E_Commerce.Web
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwiggerMidelWare();
-
-                
+                app.UseSwiggerMidelWare();              
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
 

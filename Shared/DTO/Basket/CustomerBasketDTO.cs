@@ -10,6 +10,10 @@ namespace Shared.DTO.Basket
     {
         public string Id { get; set; } = null!; // GUID (Front End Send)
         public ICollection<BasketItemDTO> Items { get; set; } = [];
+        public string? clientSecret { get; set; }
+        public string? paymentIntentId { get; set; }
+        public int? deliveryMethodId { get; set; }
+        public decimal? shippingPrice { get; set; }
     }
 
 }
