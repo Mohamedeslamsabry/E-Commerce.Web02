@@ -134,10 +134,9 @@ namespace Service_Implemention.Identity
         {
             var User = await _userManager.Users.Include(U => U.Address)
                 .FirstOrDefaultAsync(U => U.Email == email) ?? throw new UserNotFoundException(email);
-            if (User.Address is not null)
-                return _mapper.Map<Address, AddressDTO>(User.Address);
-            else
-                throw new AddressNotFoundException(email);
+            
+                return _mapper.Map<Address, AddressDTO>(User.Address!);
+          
         }
         #endregion
 
